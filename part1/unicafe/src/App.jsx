@@ -6,9 +6,7 @@ const Button = (props) => (
   </button>
 )
 
-const handleClick = (props) =>{
 
-}
 
 const App = () => {
   // guarda los clics de cada botón en su propio estado
