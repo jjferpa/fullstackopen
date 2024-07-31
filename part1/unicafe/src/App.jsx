@@ -6,6 +6,26 @@ const Button = ({handleClick, text}) => (
   </button>
 )
 
+const Statistics = ({good, neutral, bad, total, average, positiveComments}) =>{
+
+
+  return (
+    <>
+     <h1>statistics</h1>
+      <p>
+         good {good} <br />
+         neutral {neutral}<br />
+         bad {bad}<br />
+         all {total}<br />
+         average {average}<br />
+         positive {positiveComments * 100} %
+
+
+         </p>
+    </>
+
+  )
+}
 
 const App = () => {
   // guarda los clics de cada botón en su propio estado
@@ -15,6 +35,7 @@ const App = () => {
   const [total, setTotal] = useState(0);
   const [average, setAverage] = useState(0);
   const [positiveComments, setPositiveComments] = useState(0);
+
 
   const handleGoodButton = ()=> {
     const updatedGood = good+1;
@@ -65,19 +86,18 @@ const App = () => {
       <Button handleClick={handleNeutralButton} text='neutral' />
       <Button handleClick={handleBadButton} text='bad' />
 
-      <h1>statistics</h1>
-      <p>
-         good {good} <br />
-         neutral {neutral}<br />
-         bad {bad}<br />
-         all {total}<br />
-         average {average}<br />
-         positive {positiveComments * 100} %
+      <Statistics
+        good={good}
+        neutral={neutral}
+        bad={bad}
+        total={total}
+        average={average}
+        positiveComments={positiveComments}
+        />
 
-
-         </p>
+     
     </div>
   )
 }
 
-export default App
+export default App;
