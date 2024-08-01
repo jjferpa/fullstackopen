@@ -19,11 +19,17 @@ const App = () => {
 
   const copyVotes = [...votes];
 
+  const [topVoted, setTopVoted] = useState(0);
+
 
 
   const handleVoteAnecdote = () =>{
-    copyVotes[selected] ++;
+    copyVotes[selected] +=1 ;
     setVotes(copyVotes); 
+    const maxValue = Math.max(...copyVotes);
+    const topVoted = copyVotes.indexOf(maxValue);
+    setTopVoted(topVoted);
+
   }
 
 
@@ -36,11 +42,24 @@ const App = () => {
 
 
   return (
-    <div>
-      {anecdotes[selected]}<br/>
-      <button onClick={handleVoteAnecdote}>vote</button> 
-      <button onClick={handleNextAnecdote}>next anecdote</button>
-    </div>
+    <>
+      <h1>Anecdote of the day</h1>
+      <p>{anecdotes[selected]}</p>
+      <p>has {votes[selected]} votes</p>
+      <p>
+        <button onClick={handleVoteAnecdote}>vote</button> 
+        <button onClick={handleNextAnecdote}>next anecdote</button>
+      </p>
+      
+      <h1>Anecdote with most votes</h1>
+        {votes[topVoted] === 0 ? 
+          <p>No votes yet</p> :
+        <>
+          <p>{anecdotes[topVoted]}</p>
+          <p>has {votes[topVoted]} votes</p>
+        </>
+    }
+    </>
   )
 }
 
