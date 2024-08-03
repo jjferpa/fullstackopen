@@ -1,8 +1,10 @@
 
 
-export const Person = ({person}) => {
-  return (
-    <>{person.name} {person.number}<br />
-    </>
-  )
+export const Person = ({persons, filteredPersons}) => {
+    
+    return (
+        filteredPersons.map((person) =>
+            <p key={person.name}>{person.name} {person.number}</p>)
+    )
 }
+
