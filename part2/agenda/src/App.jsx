@@ -3,15 +3,19 @@ import { Person } from './components/Person';
 
 const App = () => {
   const [persons, setPersons] = useState([
-    { name: 'Arto Hellas' }
+    { name: 'Arto Hellas',
+      number: '040-1234567'
+     }
   ]);
   const [newName, setNewName] = useState('');
+  const [newNumber, setNewNumber] = useState('');
 
   const addName = (event) =>{
     event.preventDefault();
     
     const personObject = {
-      name: newName,    
+      name: newName,
+      number: newNumber    
     }
 
     const nameExists = persons.some(person => person.name === newName);
@@ -23,10 +27,15 @@ const App = () => {
 
     setPersons(persons.concat(personObject));
     setNewName('');
+    setNewNumber('');
   }
 
   const handleAddNameChange = (event) =>{
     setNewName(event.target.value);
+  }
+
+  const handleAddNumberChange = (event) =>{
+    setNewNumber(event.target.value);
   }
 
   return (
@@ -36,6 +45,7 @@ const App = () => {
         <div>
           name: <input value={newName} onChange={handleAddNameChange} />
         </div>
+        <div>number: <input value= {newNumber} onChange={handleAddNumberChange}/></div>
         <div>
           <button type="submit" >add</button>
         </div>
@@ -48,8 +58,6 @@ const App = () => {
           <Person person={person} key={person.name}/>
         )}
       </p>
-  
-      <div>debug: {newName}</div>
     </>
     
   )
