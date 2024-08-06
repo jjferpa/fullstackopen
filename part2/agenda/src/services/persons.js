@@ -15,7 +15,13 @@ const addPerson = (personObject) =>{
 
 }
 
+const removePerson = (id) =>{
+    const request = axios.delete(`${baseURL}/${id}`);
+    return request.then(response => response.data);
+}
+
 export default {
     getAll,
-    addPerson
+    addPerson,
+    removePerson
 }
