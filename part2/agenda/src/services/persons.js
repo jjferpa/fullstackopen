@@ -16,19 +16,13 @@ const addPerson = (personObject) =>{
 }
 
 const removePerson = (id) =>{
-<<<<<<< HEAD
     
-=======
->>>>>>> 7ff799c543d9959f43ef69c949beec6e10de9404
     const request = axios.delete(`${baseURL}/${id}`);
     return request.then(response => response.data);
 }
 
 const updatePerson = (id, changedPerson) =>{
-<<<<<<< HEAD
     
-=======
->>>>>>> 7ff799c543d9959f43ef69c949beec6e10de9404
     const request = axios.put(`${baseURL}/${id}`, changedPerson);
     return request.then(response => response.data);
 }
