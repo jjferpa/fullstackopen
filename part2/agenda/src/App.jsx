@@ -30,7 +30,19 @@ const App = () => {
     const nameExists = persons.some(person => person.name === newName);
 
     if (nameExists){
-      alert(`${newName} is already added to phonebook`);
+      alert(`${newName} is already added to phonebook, replace the old number with a new one?`);
+
+      const person = persons.find(e => e.name === newName);
+      const changedPerson = { ...person, number: newNumber};
+      const toChangeId = changedPerson.id;
+      
+      personService
+      .updatePerson(toChangeId, changedPerson)
+      .then(returnedPerson=> {
+        setPersons(persons.map(person => person.id !== toChangeId ? person : returnedPerson))
+        setNewName('');
+        setNewNumber('');
+      })
       return;
     } 
 
@@ -44,6 +56,20 @@ const App = () => {
 
   }
 
+  const deletePerson = (id, name) =>{
+
+    if (window.confirm(`Delete ${name}?`)){
+
+      personService
+      .removePerson(id) 
+      .then(response => {
+        setPersons(filteredPersons.filter(person => person.id !== id));
+      }).catch(error => { 
+        alert('Name already deleted');
+      })
+      }
+    }
+
   const handleAddNameChange = (event) =>{
     setNewName(event.target.value);
   }
@@ -55,6 +81,9 @@ const App = () => {
   const handleNewSearchChange = (event) =>{
     setNewSearch(event.target.value);
   }
+
+
+
 
   const filteredPersons = persons.filter(person => person.name.toLowerCase().includes(newSearch.toLowerCase()));
 
@@ -75,7 +104,12 @@ const App = () => {
 
 
       <h3>Numbers</h3>
-          <Person persons={persons} key={persons.name} filteredPersons={filteredPersons} />
+          <Person
+            persons={persons}
+            key={persons.name}
+            filteredPersons={filteredPersons}
+            deletePerson={deletePerson}
+          />
     </>
     
   )
