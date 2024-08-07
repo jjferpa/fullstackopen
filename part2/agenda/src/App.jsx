@@ -43,6 +43,10 @@ const App = () => {
         setNewName('');
         setNewNumber('');
       })
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7ff799c543d9959f43ef69c949beec6e10de9404
       return;
     } 
 
