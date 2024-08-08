@@ -44,7 +44,17 @@ const App = () => {
         setPersons(persons.map(person => person.id !== toChangeId ? person : returnedPerson))
         setNewName('');
         setNewNumber('');
+      }).catch(error => { 
+        setNotificationMessage({
+          text: `Information of ${newName} has already been removed from server`,
+          type: 'error'
+        })
+        setTimeout(()=> {
+          setNotificationMessage(null);
+        }, 5000);
       })
+
+
       return;
     } 
 
@@ -54,13 +64,14 @@ const App = () => {
         setPersons(persons.concat(returnedPerson));
         setNewName('');
         setNewNumber('');
-        setNotificationMessage(
-            `Added ${newName}`
-        )
+        setNotificationMessage({
+          text: `Added ${newName}`,
+          type: 'success'
+          })
         setTimeout(()=> {
           setNotificationMessage(null);
         }, 5000);
-      })
+      });
 
   }
 
@@ -73,7 +84,14 @@ const App = () => {
       .then(response => {
         setPersons(filteredPersons.filter(person => person.id !== id));
       }).catch(error => { 
-        alert('Name already deleted');
+
+        setNotificationMessage({
+          text: `${name} already deleted`,
+          type: 'error'
+        })
+        setTimeout(()=> {
+          setNotificationMessage(null);
+        }, 5000);
       })
       }
     }
