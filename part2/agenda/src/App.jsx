@@ -3,12 +3,14 @@ import { Person } from './components/Person';
 import { PersonForm } from './components/PersonForm';
 import { useEffect, useState } from 'react';
 import personService from './services/persons';
+import { Notification } from './components/Notification';
 
 const App = () => {
   const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState('');
   const [newNumber, setNewNumber] = useState('');
   const [newSearch, setNewSearch] = useState('');
+  const [notificationMessage, setNotificationMessage] = useState(null);
 
   useEffect(() =>{
     personService
@@ -52,6 +54,12 @@ const App = () => {
         setPersons(persons.concat(returnedPerson));
         setNewName('');
         setNewNumber('');
+        setNotificationMessage(
+            `Added ${newName}`
+        )
+        setTimeout(()=> {
+          setNotificationMessage(null);
+        }, 5000);
       })
 
   }
@@ -90,6 +98,7 @@ const App = () => {
   return (
     <>
       <h2>Phonebook</h2>
+        <Notification message={notificationMessage} />
 
         <Filter newSearch={newSearch} handleNewSearchChange = {handleNewSearchChange} />
 
