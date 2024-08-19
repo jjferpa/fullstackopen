@@ -1,0 +1,7 @@
+POST https://agenda-backend-fullstackopen.fly.dev/api/persons
+Content-Type: application/json
+
+{
+    "name": "Antonio Sanchez",
+    "number": "123-456789"
+}
