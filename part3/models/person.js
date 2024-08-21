@@ -17,18 +17,24 @@ mongoose.connect(url)
   })
 
   const personSchema = new mongoose.Schema({
-    id: Number,
     name: String,
+    id: Number,
     number: String
   })
 
-personSchema.set('toJSON', {
-  transform: (document, returnedObject) => {
-    returnedObject.id = returnedObject._id.toString()
-    delete returnedObject._id
-    delete returnedObject.__v
-  }
-})
+  personSchema.set('toJSON', {
+    transform: (document, returnedObject) => {
+      returnedObject.id = returnedObject._id.toString();
+      delete returnedObject._id;
+      delete returnedObject.__v;
+      
+      return {
+        name: returnedObject.name,
+        number: returnedObject.number,
+        id: returnedObject.id
+      };
+    }
+  });
 
 
 module.exports = mongoose.model('Person', personSchema);

@@ -30,22 +30,22 @@ app.use(morgan(':method :url :status :res[content-length] - :response-time ms - 
 
 let persons = [];
 
-app.get('/', (request, response) => {
-    response.send('<h1>Welcome to Api "persons"</h1>')
-  });
+  app.get('/', (request, response) => {
+      response.send('<h1>Welcome to Api "persons"</h1>')
+    });
 
-app.get('/info', (request, response) =>{
-    response.send(
-        `<p>Phonebook has info for ${persons.length} ${persons.length < 2 ? "person" : "people"}</p>
-         <p>${new Date()}</p>`
-        )
-});
-  
-app.get('/api/persons', (request, response) => {
-  Person.find({}).then(person => {
-    response.json(person)
+  app.get('/info', (request, response) =>{
+      response.send(
+          `<p>Phonebook has info for ${Person.length} ${Person.length < 2 ? "person" : "people"}</p>
+          <p>${new Date()}</p>`
+          )
+  });
+    
+  app.get('/api/persons', (request, response) => {
+    Person.find({}).then(person => {
+      response.json(person)
+    })
   })
-})
 
   app.get('/api/persons/:id', (request, response, error) => {
     Person.findById(request.params.id).then(person => {
@@ -70,7 +70,6 @@ app.get('/api/persons', (request, response) => {
     const person = {
       number: body.number
     }
-
     Person.findByIdAndUpdate(request.params.id, person, { new: true })
       .then(updatedPerson => {
         response.json(updatedPerson)

@@ -1,0 +1,1 @@
+GET https://agenda-backend-fullstackopen.fly.dev/api/persons/
