@@ -64,6 +64,24 @@ app.get('/api/persons', (request, response) => {
       .catch(error => next(error));
   });
 
+  app.put('/api/persons/:id', (request, response, error) => {
+    const body = request.body;
+
+    const person = {
+      number: body.number
+    }
+
+    Person.findByIdAndUpdate(request.params.id, person, { new: true })
+      .then(updatedPerson => {
+        response.json(updatedPerson)
+    })
+    .catch(error => next(error));
+  });
+
+
+
+
+
   const generateNewId = () => {
     let newId;
     
