@@ -71,6 +71,16 @@ const App = () => {
         setTimeout(()=> {
           setNotificationMessage(null);
         }, 5000);
+      })
+      .catch(error => {
+        console.log(error);
+        setNotificationMessage({
+          text: `Validation error. '${newName}' is shorter than the minimun lenght allowed (3)`,
+          type: 'error'
+          })
+        setTimeout(()=> {
+          setNotificationMessage(null);
+        }, 5000);
       });
 
   }

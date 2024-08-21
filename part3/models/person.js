@@ -17,7 +17,11 @@ mongoose.connect(url)
   })
 
   const personSchema = new mongoose.Schema({
-    name: String,
+    name:{
+      type: String,
+      minLength: 3,
+      required: true
+    },
     id: Number,
     number: String
   })
@@ -27,7 +31,7 @@ mongoose.connect(url)
       returnedObject.id = returnedObject._id.toString();
       delete returnedObject._id;
       delete returnedObject.__v;
-      
+
       return {
         name: returnedObject.name,
         number: returnedObject.number,
