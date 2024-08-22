@@ -23,6 +23,7 @@ const App = () => {
 
   const addName = (event) =>{
     event.preventDefault();
+    setNotificationMessage(null);
     
     const personObject = {
       name: newName,
@@ -73,11 +74,11 @@ const App = () => {
         }, 5000);
       })
       .catch(error => {
-        console.log(error);
+        console.log(error.response.data.error, "mensaje de error");
         setNotificationMessage({
-          text: `Validation error. '${newName}' is shorter than the minimun lenght allowed (3)`,
-          type: 'error'
-          })
+          text: `${error.response.data.error}`,
+          type: "error"
+        })
         setTimeout(()=> {
           setNotificationMessage(null);
         }, 5000);
