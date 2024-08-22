@@ -1,6 +1,6 @@
 Backend for Phone Agenda (FullstackOpen)
 
-Deploy version at: https://agenda-backend-fullstackopen.fly.dev/
+Working version: https://agenda-backend-fullstackopen.fly.dev/
 
 Info: https://agenda-backend-fullstackopen.fly.dev/info
 

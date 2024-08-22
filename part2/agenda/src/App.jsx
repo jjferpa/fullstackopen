@@ -23,7 +23,7 @@ const App = () => {
 
   const addName = (event) =>{
     event.preventDefault();
-    setNotificationMessage(null);
+    setNotificationMessage(null); //Delete notification after submiting
     
     const personObject = {
       name: newName,
@@ -153,4 +153,4 @@ const App = () => {
   )
 }
 
-export default App
+export default App;
