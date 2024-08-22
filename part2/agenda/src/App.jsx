@@ -74,7 +74,6 @@ const App = () => {
         }, 5000);
       })
       .catch(error => {
-        console.log(error.response.data.error, "mensaje de error");
         setNotificationMessage({
           text: `${error.response.data.error}`,
           type: "error"
