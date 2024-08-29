@@ -78,6 +78,23 @@ test('should POST a new blog', async () => {
  })
 
 
+ test('posting without title should get status 400', async () => { 
+  await api
+  .post('/api/blogs')
+  .send(listHelper.postBlogWithoutTitle)
+  .expect(400)
+
+  })
+
+  test('posting without URL should get status 400', async () => { 
+    await api
+    .post('/api/blogs')
+    .send(listHelper.postBlogWithoutURL)
+    .expect(400)
+    
+    })
+
+
 after(async () => {
   await mongoose.connection.close()
 })
