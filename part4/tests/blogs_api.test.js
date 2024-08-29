@@ -94,6 +94,19 @@ test('should POST a new blog', async () => {
     
     })
 
+test('should delete the blog with a valid id and get 204 status', async () => { 
+  const blogsAtStart = await listHelper.blogsInDb()
+  const blogsToDelete = blogsAtStart[0]
+
+  await api.delete(`/api/blogs/${blogsToDelete.id}`)
+  .expect(204)
+
+  const blogsAtEnd = await listHelper.blogsInDb()
+
+  assert.strictEqual(blogsAtEnd.length, blogsAtStart.length -1);
+  const contents = blogsAtEnd.map(blog => blog.id)
+  assert(!contents.includes(blogsToDelete.id))
+ })
 
 after(async () => {
   await mongoose.connection.close()
