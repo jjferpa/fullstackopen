@@ -36,6 +36,28 @@ test("blogs unique identifier should be 'id' and not '_id'", async () => {
   })
 })
 
+test('should POST a new blog', async () => { 
+  await api
+  .post('/api/blogs')
+  .send(listHelper.postBlog)
+  .expect(201)
+  .expect('Content-Type', /application\/json/)
+
+  const response = await(api.get('/api/blogs'))
+
+  assert.strictEqual(response.body.length, listHelper.initialBlogs.length+1)
+
+  const addedBlog = response.body[response.body.length - 1]
+
+  assert.deepStrictEqual({
+    title: addedBlog.title,
+    author: addedBlog.author,
+    url: addedBlog.url,
+    likes: addedBlog.likes
+  }, listHelper.postBlog)
+
+ })
+
 
 after(async () => {
   await mongoose.connection.close()
