@@ -81,6 +81,10 @@ const postBlogWithoutURL=  {
   likes: 0
 }
 
+const postUpdate = {
+  likes: 1000000
+}
+
 const dummy = (blogs) => {
     
     return 1
@@ -155,4 +159,5 @@ const dummy = (blogs) => {
     postBlogWithoutTitle,
     postBlogWithoutURL,
     blogsInDb,
+    postUpdate
   }

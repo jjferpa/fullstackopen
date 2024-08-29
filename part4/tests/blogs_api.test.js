@@ -108,6 +108,19 @@ test('should delete the blog with a valid id and get 204 status', async () => {
   assert(!contents.includes(blogsToDelete.id))
  })
 
+ test('should update the likes', async () => { 
+  const blogsAtStart = await listHelper.blogsInDb()
+  const blogsToUpdate = blogsAtStart[0]
+
+  await api.put(`/api/blogs/${blogsToUpdate.id}`)
+  .send(listHelper.postUpdate)
+  .expect(200)
+
+  const blogsAtEnd = await listHelper.blogsInDb()
+  assert.strictEqual(blogsAtEnd[0].likes, listHelper.postUpdate.likes)
+
+  })
+
 after(async () => {
   await mongoose.connection.close()
 })
