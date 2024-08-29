@@ -58,6 +58,12 @@ const postBlog=  {
   likes: 0,
 }
 
+const postBlogWithNoLikes=  {
+  title: "Blog title",
+  author: "Blog Author",
+  url: "https://www.url.com"
+}
+
 const dummy = (blogs) => {
     
     return 1
@@ -127,4 +133,5 @@ const dummy = (blogs) => {
     mostLikes,
     postBlog,
     totalLikes,
+    postBlogWithNoLikes
   }

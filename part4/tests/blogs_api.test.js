@@ -58,6 +58,25 @@ test('should POST a new blog', async () => {
 
  })
 
+ test('should POST a new blog with 0 likes', async () => { 
+  await api
+  .post('/api/blogs')
+  .send(listHelper.postBlogWithNoLikes)
+  .expect(201)
+  .expect('Content-Type', /application\/json/)
+
+  const response = await(api.get('/api/blogs'))
+  const addedBlog = response.body[response.body.length - 1]
+
+  assert.deepStrictEqual({
+    title: addedBlog.title,
+    author: addedBlog.author,
+    url: addedBlog.url,
+    likes: addedBlog.likes
+  }, listHelper.postBlog)
+
+ })
+
 
 after(async () => {
   await mongoose.connection.close()
