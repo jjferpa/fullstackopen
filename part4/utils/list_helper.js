@@ -1,4 +1,5 @@
 const Blog = require('../models/blog')
+const User = require('../models/user')
 
 const initialBlogs = [
   {
@@ -85,6 +86,46 @@ const postUpdate = {
   likes: 1000000
 }
 
+const initialUsers= [
+  {
+    "username": "jjferpa",
+    "name": "Juanjo",
+    "id": "66d5da6c4bad2bbeed120e27"
+    },
+    {
+    "username": "hellas",
+    "name": "Arto Hellas",
+    "id": "66d5daa64bad2bbeed120e2a"
+    },
+]
+
+const userWithoutUsername ={
+  "name": "No username",
+  "password": "password"
+}
+
+const userWithShortUsername ={
+  "username": "ab",
+  "name": "No username",
+  "password": "password"
+}
+
+const userWithoutPassword ={
+  "username": "abc",
+  "name": "No username"
+}
+
+const userWithShortPassword ={
+  "username": "abc",
+  "name": "No username",
+  "password": "12"
+}
+
+const usersInDb = async () => {
+  const users = await User.find({})
+  return users.map(user => user.toJSON())
+}
+
 const dummy = (blogs) => {
     
     return 1
@@ -159,5 +200,11 @@ const dummy = (blogs) => {
     postBlogWithoutTitle,
     postBlogWithoutURL,
     blogsInDb,
-    postUpdate
+    postUpdate,
+    initialUsers,
+    usersInDb,
+    userWithoutUsername,
+    userWithShortUsername,
+    userWithoutPassword,
+    userWithShortPassword
   }
