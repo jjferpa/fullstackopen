@@ -9,6 +9,12 @@ const userSchema = new mongoose.Schema({
     },
     name: String,
     passwordHash: String,
+    blogs: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Blog'
+      }
+    ],
   })
   
   userSchema.set('toJSON', {
@@ -17,7 +23,17 @@ const userSchema = new mongoose.Schema({
       delete returnedObject._id
       delete returnedObject.__v
       delete returnedObject.passwordHash
+
+      return {
+        blogs: returnedObject.blogs,
+        username: returnedObject.username,
+        name: returnedObject.name,
+        id: returnedObject.id
+  
+      }
     }
+
+
   })
   
   const User = mongoose.model('User', userSchema)
