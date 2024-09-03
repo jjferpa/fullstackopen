@@ -1,8 +1,9 @@
 POST http://localhost:3003/api/blogs
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InBvbGxvIiwiaWQiOiI2NmQ3Mjk2MTdhMjE0N2M0YmVhOTNlYTkiLCJpYXQiOjE3MjUzNzkyMTYsImV4cCI6MTcyNTM4MjgxNn0.CshXqkoI2ebVeoXtWSSimnQBt_O1WJWAnlBBWtneDaI
 
 {
-    "title": "Título del blog",
-    "author": "Autor del blog",
-    "url": "https://www.url.com"
+  "title": "Título del blog",
+  "author": "Autor del blog",
+  "url": "https://www.url.com"
 }
