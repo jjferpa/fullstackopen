@@ -90,11 +90,13 @@ const initialUsers= [
   {
     "username": "jjferpa",
     "name": "Juanjo",
+    "password": "abc",
     "id": "66d5da6c4bad2bbeed120e27"
     },
     {
     "username": "hellas",
     "name": "Arto Hellas",
+    "password": "abc",
     "id": "66d5daa64bad2bbeed120e2a"
     },
 ]
