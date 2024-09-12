@@ -2,6 +2,9 @@ import { useState, useEffect } from 'react'
 import Blog from './components/Blog'
 import blogService from './services/blogs'
 import loginService from './services/login'
+import { Notification } from './components/Notification'
+
+
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
@@ -9,7 +12,7 @@ const App = () => {
   const [username, setUsername] = useState('') 
   const [password, setPassword] = useState('') 
   const [user, setUser] = useState(null)
-  const [errorMessage, setErrorMessage] = useState(null)
+  const [message, setMessage] = useState(null)
   const [title, setTitle] = useState('')
   const [author, setAuthor] = useState('')
   const [URL, setURL] = useState('')
@@ -30,9 +33,14 @@ const App = () => {
       setUsername('')
       setPassword('')
     } catch (exception) {
-      setErrorMessage('Wrong credentials')
+      setMessage(
+        {
+        type: 'error', 
+        text: 'Wrong credentials'
+        }
+      )
       setTimeout(() => {
-        setErrorMessage(null)
+        setMessage(null)
       }, 5000)
     }
   }
@@ -54,6 +62,15 @@ const App = () => {
     .create(blogObject)
       .then(returnedBlog => {
       setBlogs(blogs.concat(returnedBlog))
+      setMessage(
+        {
+          type: 'success',
+          text: `A new blog ${title} by ${author} added`
+        }
+      )
+      setTimeout(()=>{
+        setMessage(null)
+      }, 5000)
       setNewBlog('')
     })
 
@@ -80,7 +97,7 @@ const App = () => {
     return (
       <div>
         <h2>Log in to application</h2>
-        <p>{errorMessage}</p>
+        <Notification message={ message }/>
         <form onSubmit={handleLogin}>
         <div>
           username
@@ -113,6 +130,7 @@ const App = () => {
        
       <h2>create new</h2>
       <form onSubmit={addBlog}>
+        <Notification message={ message } />
         <div>
           title:
             <input
