@@ -21,6 +21,7 @@ const App = () => {
   const [author, setAuthor] = useState('')
   const [URL, setURL] = useState('')
   const blogFormRef = useRef()
+  const [refreshBlog, setRefreshBlog] = useState(false)
 
 
   const handleLogin = async (event) => {
@@ -73,6 +74,7 @@ const App = () => {
           text: `A new blog ${title} by ${author} added`
         }
       )
+      setRefreshBlog(!refreshBlog)
       setTimeout(()=>{
         setMessage(null)
       }, 5000)
@@ -80,7 +82,11 @@ const App = () => {
       blogFormRef.current.toggleVisibility()
     })
 
+  }
 
+  const addLikes = async (id, blogObject) => {
+    await blogService.update(id, blogObject)
+    setRefreshBlog(!refreshBlog)
   }
 
   useEffect(() => {
@@ -97,6 +103,12 @@ const App = () => {
       blogService.setToken(user.token)
     }
   }, [])
+
+  useEffect(() => {
+    blogService.getAll().then(blogs =>
+      setBlogs( blogs )
+    )  
+  }, [refreshBlog])
 
 
 
@@ -133,7 +145,7 @@ const App = () => {
 
 
       {blogs.map(blog =>
-        <Blog key={blog.id} blog={blog} />
+        <Blog key={blog.id} blog={blog} addLikes={addLikes} />
       )}
     </div>
   )
