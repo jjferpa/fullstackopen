@@ -89,6 +89,11 @@ const App = () => {
     setRefreshBlog(!refreshBlog)
   }
 
+  const deleteBlog = async (id) => {
+    await blogService.deleteBlog(id)
+    setRefreshBlog(!refreshBlog)
+  }
+
   useEffect(() => {
     blogService.getAll().then(blogs =>
       setBlogs( blogs )
@@ -129,22 +134,24 @@ const App = () => {
   return (
     <div>
        <h2>blogs</h2>
-       <p>{user.name} is logged in<button onClick={handleLogout}>logout</button></p>  
+       <p>{user.name} is logged in<button onClick={handleLogout}>logout</button></p>
+
+       <Notification message={message} />  
        
-    <Togglable buttonLabel="new blog" ref={blogFormRef}>
-      <BlogForm
-      addBlog={addBlog}
-      message={message}
-      title={title}
-      setTitle={setTitle}
-      setAuthor={setAuthor}
-      setURL={setURL}
-      />
-    </Togglable>
+      <Togglable buttonLabel="new blog" ref={blogFormRef}>
+        <BlogForm
+        addBlog={addBlog}
+        message={message}
+        title={title}
+        setTitle={setTitle}
+        setAuthor={setAuthor}
+        setURL={setURL}
+        />
+      </Togglable>
 
 
       {blogs.map(blog =>
-        <Blog key={blog.id} blog={blog} addLikes={addLikes} />
+        <Blog key={blog.id} blog={blog} addLikes={addLikes} deleteBlog={deleteBlog} user={user} />
       )}
     </div>
   )
