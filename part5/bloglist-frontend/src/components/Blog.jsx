@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState } from 'react'
 
 const Blog = ({ blog, addLikes, deleteBlog, user }) => {
 
@@ -31,9 +31,9 @@ const Blog = ({ blog, addLikes, deleteBlog, user }) => {
 
   const handleDelete = () => {
     const confirmDelete = confirm(`Remove blog ${blog.title} by ${blog.author}`)
-    
+
     if (confirmDelete){
-     deleteBlog(blog.id);
+      deleteBlog(blog.id)
     }
 
   }
@@ -48,13 +48,13 @@ const Blog = ({ blog, addLikes, deleteBlog, user }) => {
         <button style={hideWhenVisible} onClick={toggleVisibility}>hide</button>
       </div>
       <div style={hideWhenVisible}>
-      {blog.url}<br/>
+        {blog.url}<br/>
 
       likes {blog.likes}<button onClick={handleLike}>like</button><br/>
-      {blog.user.name}<br/>
-      {showDeleteButton && <button onClick={handleDelete}>remove</button>}
+        {blog.user.name}<br/>
+        {showDeleteButton && <button onClick={handleDelete}>remove</button>}
       </div>
-  </div>
-)}
+    </div>
+  )}
 
 export default Blog

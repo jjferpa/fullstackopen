@@ -1,15 +1,15 @@
-import { Notification } from "./Notification"
+import { Notification } from './Notification'
 
 
-export const LoginForm = ({message, handleLogin, username, password, setUsername, setPassword}) => {
+export const LoginForm = ({ message, handleLogin, username, password, setUsername, setPassword }) => {
   return (
     <>
-     <h2>Log in to application</h2>
-        <Notification message={ message }/>
-        <form onSubmit={handleLogin}>
+      <h2>Log in to application</h2>
+      <Notification message={ message }/>
+      <form onSubmit={handleLogin}>
         <div>
           username
-            <input
+          <input
             type="text"
             value={username}
             name="Username"
@@ -18,7 +18,7 @@ export const LoginForm = ({message, handleLogin, username, password, setUsername
         </div>
         <div>
           password
-            <input
+          <input
             type="password"
             value={password}
             name="Password"

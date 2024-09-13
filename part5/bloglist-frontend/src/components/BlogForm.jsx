@@ -1,15 +1,17 @@
-import { Notification } from "./Notification"
+import PropTypes from 'prop-types'
+
+import { Notification } from './Notification'
 
 
-export const BlogForm = ({addBlog, message, title, author, URL, setTitle, setAuthor, setURL}) => {
+export const BlogForm = ({ addBlog, message, title, author, URL, setTitle, setAuthor, setURL }) => {
   return (
     <>
-     <h2>create new</h2>
+      <h2>create new</h2>
       <form onSubmit={addBlog}>
         <Notification message={ message } />
         <div>
           title:
-            <input
+          <input
             type="text"
             value={title}
             name="title"
@@ -18,7 +20,7 @@ export const BlogForm = ({addBlog, message, title, author, URL, setTitle, setAut
         </div>
         <div>
           author:
-            <input
+          <input
             type="text"
             value={author}
             name="author"
@@ -27,7 +29,7 @@ export const BlogForm = ({addBlog, message, title, author, URL, setTitle, setAut
         </div>
         <div>
           url:
-            <input
+          <input
             type="url"
             value={URL}
             name="URL"
@@ -38,4 +40,10 @@ export const BlogForm = ({addBlog, message, title, author, URL, setTitle, setAut
       </form>
     </>
   )
+}
+
+BlogForm.Proptypes = {
+  title: PropTypes.string.isRequired,
+  author: PropTypes.string.isRequired,
+  url: PropTypes.string.isRequired
 }
