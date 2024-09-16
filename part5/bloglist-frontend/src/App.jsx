@@ -4,7 +4,7 @@ import blogService from './services/blogs'
 import loginService from './services/login'
 import { Notification } from './components/Notification'
 import { LoginForm } from './components/LoginForm'
-import Togglable from './components/Toggable'
+import Togglable from './components/Togglable'
 import { BlogForm } from './components/BlogForm'
 
 
