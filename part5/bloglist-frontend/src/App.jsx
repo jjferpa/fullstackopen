@@ -17,9 +17,6 @@ const App = () => {
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
   const [message, setMessage] = useState(null)
-  const [title, setTitle] = useState('')
-  const [author, setAuthor] = useState('')
-  const [URL, setURL] = useState('')
   const blogFormRef = useRef()
   const [refreshBlog, setRefreshBlog] = useState(false)
 
@@ -56,14 +53,7 @@ const App = () => {
     setUser(null)
   }
 
-  const addBlog = (event) => {
-    event.preventDefault()
-    const blogObject = {
-      title: title,
-      author: author,
-      url: URL
-    }
-
+  const addBlog = (blogObject) => {
     blogService
       .create(blogObject)
       .then(returnedBlog => {
@@ -71,17 +61,16 @@ const App = () => {
         setMessage(
           {
             type: 'success',
-            text: `A new blog ${title} by ${author} added`
+            text: `A new blog ${blogObject.title} by ${blogObject.author} added`
           }
+
         )
         setRefreshBlog(!refreshBlog)
         setTimeout(() => {
           setMessage(null)
         }, 5000)
-        setNewBlog('')
         blogFormRef.current.toggleVisibility()
       })
-
   }
 
   const addLikes = async (id, blogObject) => {
@@ -139,14 +128,7 @@ const App = () => {
       <Notification message={message} />
 
       <Togglable buttonLabel="new blog" ref={blogFormRef}>
-        <BlogForm
-          addBlog={addBlog}
-          message={message}
-          title={title}
-          setTitle={setTitle}
-          setAuthor={setAuthor}
-          setURL={setURL}
-        />
+        <BlogForm createBlog={addBlog} />
       </Togglable>
 
 
