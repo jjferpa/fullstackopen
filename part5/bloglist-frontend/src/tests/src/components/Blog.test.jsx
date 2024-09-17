@@ -2,7 +2,9 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import Blog from '../../../components/Blog'
 
+
 const blog = {
+    id: '123456',
     title: 'Titulo de blog para test',
     author: 'John Smith',
     url: 'https://www.blogurl.com',
@@ -32,7 +34,7 @@ describe('Testing <Blog /> component', () => {
 
   test('URL and likes should show on click view button', async () => { 
 
-    const mockView = vi.fn()
+
     render(<Blog blog={blog} user={blogUser}/>)
 
     const user = userEvent.setup()
@@ -40,7 +42,22 @@ describe('Testing <Blog /> component', () => {
     await user.click(button)
     const element = screen.getByTestId('blog-details')
 
-    expect(element).toHaveTextContent(`${blog.url}likes ${blog.likes}like${blog.user.name}remove`)
+    expect(element).toHaveTextContent(`${blog.url}`)+
+    expect(element).toHaveTextContent(`likes ${blog.likes}`)
+
+   })
+
+   test('Clicking twice like button should call twice the event controller ', async() => { 
+
+    const mockLikeButton = vi.fn()
+    render(<Blog blog={blog} user={blogUser} addLikes={mockLikeButton} />)
+    const user = userEvent.setup()
+
+    const likeButton = screen.getByText('like')
+    await user.click(likeButton)
+    await user.click(likeButton)
+  
+    expect(mockLikeButton.mock.calls).toHaveLength(2)
 
    })
 

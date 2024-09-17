@@ -50,7 +50,7 @@ const Blog = ({ blog, addLikes, deleteBlog, user }) => {
       <div style={hideWhenVisible} data-testid="blog-details">
         {blog.url}<br/>
 
-      likes {blog.likes}<button onClick={handleLike}>like</button><br/>
+      likes {blog.likes}<button onClick={handleLike} data-testid="like-btn">like</button><br/>
         {blog.user.name}<br/>
         {showDeleteButton && <button onClick={handleDelete}>remove</button>}
       </div>
