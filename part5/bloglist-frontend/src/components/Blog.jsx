@@ -38,7 +38,7 @@ const Blog = ({ blog, addLikes, deleteBlog, user }) => {
 
   }
 
-  const showDeleteButton = blog.user.username === user.username ? true : false
+  const showDeleteButton = blog.username === user.username ? true : false
 
   return (
     <div style={blogStyle}>
@@ -51,7 +51,7 @@ const Blog = ({ blog, addLikes, deleteBlog, user }) => {
         {blog.url}<br/>
 
       likes {blog.likes}<button onClick={handleLike} data-testid="like-btn">like</button><br/>
-        {blog.user.name}<br/>
+        {user.name}<br/>
         {showDeleteButton && <button onClick={handleDelete}>remove</button>}
       </div>
     </div>
