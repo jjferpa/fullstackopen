@@ -12,6 +12,13 @@ describe('Blog app', () => {
         password: '123'
       }
     })
+    await request.post('http://localhost:3003/api/users', {
+      data: {
+        name: 'Peter Parker',
+        username: 'peter',
+        password: '123'
+      }
+   })
 
     await page.goto('http://localhost:5174')
   })
@@ -85,8 +92,30 @@ describe('When logged in', () => {
 
       await expect(createdBlog).not.toBeVisible();
 
-
      })
+
+     test('only the creator user can see the remove button', async ({page}) => { 
+
+      await page.getByRole('button', {name: 'new blog'}).click();
+      const input = await page.getByRole('textbox').all();
+      await input[0].fill('Blog title 50');
+      await input[1].fill('Blog author');
+      await input[2].fill('https://www.google.es');
+      await page.getByRole('button', {name: 'create'}).click();
+
+      await page.getByRole('button', {name: 'logout'}).click();
+
+      await page.getByTestId('username').fill('peter');
+      await page.getByTestId('password').fill('123');
+      await page.getByRole('button', {name: 'login'}).click();
+
+      await page.getByRole('button', {name: 'view'}).click();
+    
+     expect(page.getByRole('button', { name: 'remove' })).toBeHidden();
+
+
+     })     
+
 
   })
 
