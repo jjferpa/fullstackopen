@@ -11,14 +11,6 @@ const Blog = ({ blog, addLikes, deleteBlog, user }) => {
     setVisible(!visible)
   }
 
-  const blogStyle = {
-    paddingTop: 10,
-    paddingLeft: 2,
-    border: 'solid',
-    borderWidth: 1,
-    marginBottom: 5
-  }
-
   const handleLike = () => {
     const blogObject = {
       title: blog.title,
@@ -38,10 +30,10 @@ const Blog = ({ blog, addLikes, deleteBlog, user }) => {
 
   }
 
-  const showDeleteButton = blog.username === user.username ? true : false
+  const showDeleteButton = blog.user.username === user.username ? true : false
 
   return (
-    <div style={blogStyle}>
+    <div className='blog-style'>
       <div data-testid="blog-header">
         {blog.title} {blog.author}
         <button style={showWhenVisible} onClick={toggleVisibility}>view</button>
@@ -50,8 +42,10 @@ const Blog = ({ blog, addLikes, deleteBlog, user }) => {
       <div style={hideWhenVisible} data-testid="blog-details">
         {blog.url}<br/>
 
-      likes {blog.likes}<button onClick={handleLike} data-testid="like-btn">like</button><br/>
-        {user.name}<br/>
+      <span data-testid='likes'>likes {blog.likes}</span>
+      <button onClick={handleLike} data-testid="like-btn">like</button>
+      <br/>
+        {blog.user.name}<br/>
         {showDeleteButton && <button onClick={handleDelete}>remove</button>}
       </div>
     </div>

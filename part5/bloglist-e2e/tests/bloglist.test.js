@@ -1,6 +1,8 @@
 const { test, expect, beforeEach, describe } = require('@playwright/test')
+const { loginWith, createBlog } = require('./helper')
 
 describe('Blog app', () => {
+  
   beforeEach(async ({  page, request }) => {
     await request.post('http:localhost:3003/api/testing/reset')
     await request.post('http://localhost:3003/api/users', {
@@ -15,6 +17,7 @@ describe('Blog app', () => {
   })
 
 
+
   test('Login form is shown', async ({ page }) => {
     
     await expect(page.getByRole('heading', { name: 'Log in to application' })).toBeVisible();
@@ -24,24 +27,50 @@ describe('Blog app', () => {
 
   })
 
-  describe('Login', () => {
-    test.only('succeeds with correct credentials', async ({ page }) => {
+describe('Login', () => {
+
+    test('succeeds with correct credentials', async ({ page }) => {
     
-    await page.getByTestId('username').fill('jdoe');
-    await page.getByTestId('password').fill('123');
-    await page.getByRole('button', {name: 'login'}).click();
-    await expect(page.getByText('Jonh Doe is logged inlogout')).toBeVisible();
+    loginWith(page, 'jdoe', '123');
+    await expect(page.getByRole('paragraph').first()).toContainText('John Doe is logged in');
     await expect(page.getByRole('heading', {name: 'blogs'})).toBeVisible();
 
     })
 
     test('fails with wrong credentials', async ({ page }) => {
-    await page.getByTestId('username').fill('jdoe');
-    await page.getByTestId('password').fill('456');
+    loginWith(page, 'jdoe', '456');
     await page.getByRole('button', {name: 'login'}).click();
     
     const errorDiv = await page.locator('.error')
     await expect(errorDiv).toContainText('Wrong credentials')
     })
   })
+
+describe('When logged in', () => {
+
+    beforeEach(async ({ page }) => {
+      loginWith(page, 'jdoe', '123');
+    })
+  
+    test('a new blog can be created', async ({ page }) => {
+    
+    createBlog(page, 'Blog title 50', 'Blog author', 'https://www.google.es');
+    
+    const createdBlog = await page.locator('.blog-style').last();
+
+    await expect(page.locator('.success')).toBeVisible();
+    await expect(createdBlog).toContainText('Blog title 50');
+    })
+
+    test('a new blog can be liked', async ({ page }) => {
+    createBlog(page, 'Blog title 50', 'Blog author', 'https://www.google.es');
+    const createdBlog = page.locator('.blog-style').last();
+
+    await createdBlog.getByRole('button', {name: 'view'}).click();
+    await createdBlog.getByRole('button', {name: 'like'}).click();
+
+    await expect(createdBlog.getByTestId('likes')).toContainText('likes 1')
+    })    
+  })
+
 })
