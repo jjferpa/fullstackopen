@@ -42,7 +42,7 @@ const reducer = (state = initialState, action) => {
 
   switch (action.type){
     case 'ADD_ANECDOTE':
-      return [...state, action.payload ]
+      return [...state, action.payload ].sort((a, b) => b.votes - a.votes)
 
     case 'VOTE':
       const id = action.payload.id
@@ -53,12 +53,13 @@ const reducer = (state = initialState, action) => {
       }
       return state.map(anecdote =>
         anecdote.id !== id ? anecdote: votedAnecdote 
-      )
+      ).sort((a, b) => b.votes - a.votes)
+
       
   default:
     console.log('state now: ', state)
     console.log('action', action)
-    return state
+    return state.sort((a, b) => b.votes - a.votes)
 
 
 }
