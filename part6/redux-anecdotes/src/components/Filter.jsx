@@ -1,9 +1,6 @@
 import { useDispatch } from 'react-redux'
 import { filterChange } from '../reducers/filterReducer'
 
-import anecdotesReducer from '../reducers/anecdoteReducer'
-import filterReducer from '../reducers/filterReducer'
-
 const FilterAnecdotes = () => {
   const dispatch = useDispatch()
 
