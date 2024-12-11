@@ -1,6 +1,5 @@
 
-
-const AnecdoteForm = ({ newAnecdoteMutation }) => {
+const AnecdoteForm = ({ newAnecdoteMutation, notificationDispatch }) => {
 
 
 
@@ -9,9 +8,13 @@ const AnecdoteForm = ({ newAnecdoteMutation }) => {
     const content = event.target.anecdote.value
    
     if (content.length < 5) {
-      console.log('Anecdote length is less than 5')
+      notificationDispatch({
+        type: 'SHOW_NOTIFICATION',
+        payload: `too short anecdote, must have length 5 or more`,
+      })
       return
     }
+
     newAnecdoteMutation.mutate({ content, votes: 0 })
     event.target.anecdote.value = ''
 }

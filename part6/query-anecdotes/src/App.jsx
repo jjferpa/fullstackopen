@@ -21,8 +21,14 @@ const App = () => {
         type: 'SHOW_NOTIFICATION',
         payload: `anecdote "${newAnecdote.content}" created`,
       })
-    }
-   })
+    },
+    onError: () => {
+      notificationDispatch({
+        type: 'SHOW_NOTIFICATION',
+        payload: `Failed to create anecdote.`,
+      })
+    },
+  })
 
    const updateAnecdoteMutation = useMutation({
     mutationFn: updateAnecdote,
@@ -64,7 +70,7 @@ const App = () => {
       <h3>Anecdote app</h3>
     
       <Notification  />
-      <AnecdoteForm newAnecdoteMutation={newAnecdoteMutation} />
+      <AnecdoteForm newAnecdoteMutation={newAnecdoteMutation} notificationDispatch={notificationDispatch} />
     
       {anecdotes.map(anecdote =>
         <div key={anecdote.id}>
