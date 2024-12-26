@@ -90,9 +90,9 @@ const Footer = () => (
 )
 
 const CreateNew = ({ addNew, setNotification }) => {
-  const content = useField("text")
-  const author = useField("text")
-  const info = useField("url")
+  const { reset: resetContent, ...content } = useField("text")
+  const { reset: resetAuthor, ...author } = useField("text")
+  const { reset: resetInfo, ...info } = useField("url")
 
   const navigate = useNavigate()
 
@@ -112,7 +112,11 @@ const CreateNew = ({ addNew, setNotification }) => {
     }, 5000)
   }
 
-
+  const handleReset = () => {
+    resetContent()
+    resetAuthor()
+    resetInfo()
+  }
 
   return (
     <div>
@@ -130,7 +134,7 @@ const CreateNew = ({ addNew, setNotification }) => {
           url for more info
           <input {...info} />
         </div>
-        <button>create</button> 
+        <button>create</button> <button type="button" onClick={handleReset}>reset</button>
         
       </form>
     </div>
